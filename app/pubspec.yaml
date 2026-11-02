@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   supabase_flutter: ^2.8.0
-  record: ^5.1.2
+  record: ^7.1.2
   just_audio: ^0.9.40
   path_provider: ^2.1.4
   url_launcher: ^6.3.0
