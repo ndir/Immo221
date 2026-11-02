@@ -28,11 +28,13 @@ class _ZonesScreenState extends State<ZonesScreen> {
     try {
       final zones = await Api.instance.zones();
       final subs = await Api.instance.subscriptions();
-      if (mounted) setState(() {
-        _zones = zones;
-        _subs = subs;
-        _loading = false;
-      });
+      if (mounted) {
+        setState(() {
+          _zones = zones;
+          _subs = subs;
+          _loading = false;
+        });
+      }
     } catch (e) {
       if (mounted) showMessage(context, friendlyError(e));
     }

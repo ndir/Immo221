@@ -136,10 +136,12 @@ class _FicheScreenState extends State<FicheScreen> {
       showDragHandle: true,
       builder: (_) => ZonePicker(zones: all, exclude: _zones.map((z) => z.id).toSet()),
     );
-    if (picked != null) setState(() {
-      _zones.add(picked);
-      _edited = true;
-    });
+    if (picked != null) {
+      setState(() {
+        _zones.add(picked);
+        _edited = true;
+      });
+    }
   }
 
   @override

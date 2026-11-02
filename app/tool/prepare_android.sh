@@ -7,6 +7,8 @@ cd "$(dirname "$0")/.."
 
 if [ ! -d android ]; then
   flutter create . --platforms=android --org sn.dekk --project-name dekk
+  # Le test d'exemple généré vise une app « MyApp » qui n'existe pas ici
+  rm -f test/widget_test.dart
 fi
 
 MANIFEST=android/app/src/main/AndroidManifest.xml

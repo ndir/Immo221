@@ -29,10 +29,10 @@ class WelcomeScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(24, 24, 24, 24),
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                    const Text('Dëkk',
+                  const Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                    Text('Dëkk',
                         style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800, color: DekkColors.green, letterSpacing: -0.5)),
-                    const Pill('100 % gratuit au lancement'),
+                    Pill('100 % gratuit au lancement'),
                   ]),
                   const SizedBox(height: 18),
                   Text('Trouvez un logement en parlant, partout au Sénégal', style: t.headlineMedium),

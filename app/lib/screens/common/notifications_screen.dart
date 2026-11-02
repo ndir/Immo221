@@ -31,10 +31,12 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     try {
       final s = await Api.instance.userSettings();
       final p = await Api.instance.notificationPrefs();
-      if (mounted) setState(() {
-        _settings = s;
-        _prefs = p;
-      });
+      if (mounted) {
+        setState(() {
+          _settings = s;
+          _prefs = p;
+        });
+      }
     } catch (_) {/* réglages facultatifs */}
   }
 
