@@ -10,10 +10,10 @@ Les prix indiqués sont des ordres de grandeur ; vérifiez-les sur le site de ch
 
 1. Créez un compte sur [supabase.com](https://supabase.com) puis **New project**.
 2. Nom : `dekk`. Région : la plus proche du Sénégal parmi celles proposées (Europe de l'Ouest). Notez le mot de passe de la base.
-3. Dans **Project Settings › API**, notez :
-   - **Project URL** (`https://xxxx.supabase.co`)
-   - la clé **anon public** (utilisée par l'app et la page web)
-   - la clé **service_role** (secrète : ne jamais la mettre dans l'app ni la page web)
+3. Cliquez sur le bouton **Connect** en haut de la page du projet, ou allez dans **Project Settings › API Keys**, et notez :
+   - l'adresse du projet, **Project URL** (`https://xxxx.supabase.co`)
+   - la **Publishable key** (`sb_publishable_...`) : c'est la clé publique, utilisée par l'app et la page web. Partout où ce guide ou le code parle de « clé anon », mettez cette clé. L'ancienne clé `anon` (onglet des clés « Legacy ») fonctionne aussi.
+   - la **Secret key** (`sb_secret_...`, ex-`service_role`) n'est pas nécessaire pour Dëkk : les fonctions serveur la reçoivent automatiquement. Ne la mettez jamais dans l'app ni dans la page web.
 
 L'offre gratuite suffit pour la bêta.
 
