@@ -1,0 +1,22 @@
+# Configuration Supabase CLI pour Dëkk (extrait ; `supabase init` complète le reste).
+project_id = "dekk"
+
+[auth]
+site_url = "https://dekk.sn"
+additional_redirect_urls = ["sn.dekk.app://login-callback"]
+
+[auth.sms]
+enable_signup = true
+enable_confirmations = true
+template = "Votre code Dëkk : {{ .Code }}"
+
+# Appelée par l'app et la page web avec le jeton de l'utilisateur
+[functions.process-voice]
+verify_jwt = true
+
+# Appelées par la base (webhook / cron) avec un secret partagé, pas par un utilisateur
+[functions.send-push]
+verify_jwt = false
+
+[functions.push-digest]
+verify_jwt = false

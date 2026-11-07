@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Dëkk · Votre recherche de logement en un vocal</title>
+  <meta name="description" content="Laissez un message vocal : propriétaires et agences vous répondent sur WhatsApp. Gratuit, partout au Sénégal.">
+  <meta name="theme-color" content="#0B6E4F">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="config.js"></script>
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <div class="page">
+    <img class="watermark" src="assets/senegal.svg" alt="" aria-hidden="true">
+
+    <!-- 1. Accueil + enregistrement -->
+    <section id="s-record" class="screen" hidden>
+      <img class="hero" src="assets/accueil.png" alt="Le monument de la Renaissance africaine à Dakar">
+      <div class="content">
+        <div class="row-between">
+          <span class="logo">Dëkk</span>
+          <span class="pill pill-accent" id="free-pill">100 % gratuit</span>
+        </div>
+        <h1>Votre recherche de logement en un vocal</h1>
+        <p class="lead">Dites quoi, où, combien et pour quand. Les propriétaires et agences vous répondent sur WhatsApp. Partout au Sénégal, sans application.</p>
+
+        <ul class="hints" aria-label="Que dire dans votre vocal">
+          <li><strong>Quoi ?</strong> appartement, chambre, terrain…</li>
+          <li><strong>Où ?</strong> ville et quartier</li>
+          <li><strong>Combien ?</strong> par mois ou total</li>
+          <li><strong>Quand ?</strong> tout de suite, le mois prochain…</li>
+        </ul>
+
+        <div class="recorder" id="recorder" data-state="idle">
+          <div class="bars" id="bars" aria-hidden="true"></div>
+          <button class="mic" id="mic" type="button" aria-label="Appuyez pour enregistrer votre vocal">
+            <svg class="i-mic" aria-hidden="true" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+            <span class="i-stop" aria-hidden="true"></span>
+          </button>
+          <p class="rec-status" id="rec-status" aria-live="polite">Appuyez pour parler · 1 min 30 max</p>
+          <p class="muted small" id="rec-help">Votre navigateur vous demandera l'accès au micro.</p>
+
+          <div class="review" id="review" hidden>
+            <audio id="preview" controls preload="metadata"></audio>
+            <div class="btn-row">
+              <button class="btn btn-ghost" id="restart" type="button">Recommencer</button>
+              <button class="btn btn-primary" id="send" type="button">Envoyer</button>
+            </div>
+          </div>
+        </div>
+
+        <a class="link-suivi" href="#suivi" id="go-suivi">J'ai déjà une demande : suivre</a>
+      </div>
+      <footer class="app-banner" id="app-banner-1" hidden>
+        <span>Vous préférez l'application ?</span>
+        <a class="btn btn-outline btn-sm" data-play-link href="#">Télécharger</a>
+      </footer>
+    </section>
+
+    <!-- 2. Numéro + code -->
+    <section id="s-phone" class="screen" hidden>
+      <div class="content">
+        <button class="back" type="button" data-go="record" aria-label="Retour">
+          <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+        </button>
+        <p class="step">Étape 2 sur 3</p>
+        <h1>Votre numéro WhatsApp</h1>
+        <p class="lead">C'est là que les offreurs vous écriront. Nous vérifions le numéro par SMS.</p>
+
+        <form id="phone-form" class="stack" novalidate>
+          <label class="field">
+            <span>Votre prénom</span>
+            <input id="name" name="name" autocomplete="given-name" maxlength="40" placeholder="Awa">
+          </label>
+          <label class="field">
+            <span>Numéro WhatsApp</span>
+            <span class="phone-input">
+              <span class="prefix">+221</span>
+              <input id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="77 123 45 67" required>
+            </span>
+          </label>
+          <button class="btn btn-primary" type="submit" id="send-code">Recevoir le code</button>
+        </form>
+
+        <form id="code-form" class="stack" hidden novalidate>
+          <label class="field">
+            <span>Code reçu par SMS</span>
+            <input id="code" name="code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" class="code-input" required>
+          </label>
+          <p class="muted small" id="demo-code-hint" hidden>Démonstration : le code est 123456.</p>
+          <button class="btn btn-primary" type="submit" id="verify">Valider</button>
+          <button class="btn btn-ghost" type="button" id="change-phone">Changer de numéro</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- 3. Traitement -->
+    <section id="s-processing" class="screen" hidden>
+      <div class="content center">
+        <div class="spinner" aria-hidden="true"></div>
+        <h1>On prépare votre fiche…</h1>
+        <p class="lead">Nous écoutons votre vocal et remplissons la fiche. Cela prend quelques secondes.</p>
+        <div id="process-error" hidden class="stack">
+          <p class="error" id="process-error-text"></p>
+          <button class="btn btn-primary" type="button" id="retry-process">Réessayer</button>
+          <button class="btn btn-ghost" type="button" data-go="record">Refaire le vocal</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Fiche -->
+    <section id="s-fiche" class="screen" hidden>
+      <div class="content">
+        <p class="step">Étape 3 sur 3</p>
+        <h1>Vérifiez votre fiche</h1>
+        <div class="card transcript">
+          <audio id="fiche-audio" controls preload="metadata"></audio>
+          <p id="transcript" class="small"></p>
+        </div>
+        <p class="muted">Corrigez ce qui ne va pas, puis publiez.</p>
+
+        <form id="fiche-form" class="stack" novalidate>
+          <fieldset class="field">
+            <legend>Vous cherchez</legend>
+            <div class="chips" role="radiogroup" id="transaction">
+              <label class="chip"><input type="radio" name="transaction" value="location"><span>Location</span></label>
+              <label class="chip"><input type="radio" name="transaction" value="colocation"><span>Colocation</span></label>
+              <label class="chip"><input type="radio" name="transaction" value="achat"><span>Achat</span></label>
+              <label class="chip"><input type="radio" name="transaction" value="terrain"><span>Terrain</span></label>
+            </div>
+          </fieldset>
+
+          <label class="field">
+            <span>Type de bien</span>
+            <select id="property" name="property">
+              <option value="">Non précisé</option>
+              <option value="chambre">Chambre</option>
+              <option value="studio">Studio</option>
+              <option value="appartement">Appartement</option>
+              <option value="maison">Maison</option>
+              <option value="villa">Villa</option>
+              <option value="terrain">Terrain</option>
+              <option value="local_commercial">Local commercial</option>
+              <option value="autre">Autre</option>
+            </select>
+          </label>
+
+          <div class="field">
+            <span id="zones-label">Quartiers ou villes</span>
+            <div class="chips" id="zone-chips" aria-labelledby="zones-label"></div>
+            <input id="zone-search" list="zone-list" placeholder="Ajouter un quartier ou une ville" aria-labelledby="zones-label">
+            <datalist id="zone-list"></datalist>
+            <p class="warn small" id="zone-free" hidden></p>
+          </div>
+
+          <div class="grid-2">
+            <label class="field">
+              <span>Budget max (FCFA)</span>
+              <input id="budget_max" type="text" inputmode="numeric" placeholder="300 000">
+            </label>
+            <label class="field">
+              <span>Période</span>
+              <select id="budget_period">
+                <option value="mois">Par mois</option>
+                <option value="total">Total</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Chambres min.</span>
+              <input id="bedrooms_min" type="number" min="0" max="20" inputmode="numeric">
+            </label>
+            <label class="field">
+              <span>Emménagement</span>
+              <input id="move_in" maxlength="60" placeholder="le mois prochain">
+            </label>
+          </div>
+
+          <label class="check">
+            <input type="checkbox" id="is_urgent">
+            <span>C'est urgent</span>
+          </label>
+
+          <label class="field">
+            <span>Résumé lu par les offreurs</span>
+            <textarea id="summary" rows="3" maxlength="160"></textarea>
+          </label>
+
+          <fieldset class="field">
+            <legend>Visible pendant</legend>
+            <div class="segmented">
+              <label><input type="radio" name="visibility" value="7"><span>7 jours</span></label>
+              <label><input type="radio" name="visibility" value="15" checked><span>15 jours</span></label>
+              <label><input type="radio" name="visibility" value="30"><span>30 jours</span></label>
+            </div>
+          </fieldset>
+
+          <label class="check">
+            <input type="checkbox" id="consent" required>
+            <span>J'accepte que jusqu'à 5 offreurs me contactent sur WhatsApp pendant la durée choisie.</span>
+          </label>
+
+          <p class="error" id="fiche-error" role="alert" hidden></p>
+          <button class="btn btn-primary btn-lg" type="submit" id="publish">Publier ma demande</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- 5. Publiée -->
+    <section id="s-done" class="screen" hidden>
+      <div class="content">
+        <div class="center stack-sm">
+          <div class="success-icon" aria-hidden="true">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>
+          </div>
+          <h1>Votre demande est en ligne</h1>
+          <p class="lead" id="done-text"></p>
+        </div>
+        <div class="card small">
+          Gardez ce lien pour prolonger ou clôturer votre demande sans application :
+          <a href="#suivi" id="suivi-link"></a>
+        </div>
+        <div class="card card-accent stack-sm" id="app-offer">
+          <h2>Pour un suivi plus complet, prenez l'application</h2>
+          <ul class="checklist">
+            <li>Alerte dès qu'un offreur vous écrit</li>
+            <li>Nombre d'écoutes de votre vocal</li>
+            <li>Liste et notes des offreurs qui vous ont contacté</li>
+            <li>Modifier ou relancer une demande en un tap</li>
+          </ul>
+          <a class="btn btn-primary" data-play-link href="#">Télécharger l'application</a>
+          <p class="muted small center">Connectez-vous avec le même numéro : votre demande vous suit.</p>
+        </div>
+        <a class="btn btn-ghost" href="#suivi">Non merci, WhatsApp me suffit</a>
+      </div>
+    </section>
+
+    <!-- 6. Suivi -->
+    <section id="s-suivi" class="screen" hidden>
+      <div class="content">
+        <div class="row-between">
+          <button class="back" type="button" data-go="record" aria-label="Retour à l'accueil">
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+          </button>
+          <button class="btn btn-ghost btn-sm" type="button" id="sign-out">Se déconnecter</button>
+        </div>
+        <h1>Mes demandes</h1>
+        <div id="requests" class="stack"></div>
+        <a class="btn btn-outline" href="#" data-go="record">Nouvelle demande</a>
+      </div>
+    </section>
+
+    <!-- Clôture -->
+    <dialog id="close-dialog">
+      <form method="dialog" class="stack">
+        <h2>Bravo ! Qui vous a aidé ?</h2>
+        <div id="close-owners" class="stack-sm"></div>
+        <fieldset class="field">
+          <legend>Votre note</legend>
+          <div class="stars" id="stars">
+            <label><input type="radio" name="rating" value="1"><span aria-label="1 étoile">★</span></label>
+            <label><input type="radio" name="rating" value="2"><span aria-label="2 étoiles">★</span></label>
+            <label><input type="radio" name="rating" value="3"><span aria-label="3 étoiles">★</span></label>
+            <label><input type="radio" name="rating" value="4"><span aria-label="4 étoiles">★</span></label>
+            <label><input type="radio" name="rating" value="5" checked><span aria-label="5 étoiles">★</span></label>
+          </div>
+        </fieldset>
+        <div class="btn-row">
+          <button class="btn btn-ghost" value="cancel">Annuler</button>
+          <button class="btn btn-primary" value="ok" id="close-confirm">Confirmer</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+    <p class="demo-badge" id="demo-badge" hidden>Mode démonstration · aucune donnée envoyée</p>
+  </div>
+</body>
+</html>

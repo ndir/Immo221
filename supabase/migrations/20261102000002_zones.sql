@@ -1,0 +1,72 @@
+-- =====================================================================
+-- Dëkk — référentiel des zones (quartiers et villes du Sénégal)
+-- Les alias servent à reconnaître les noms dits à l'oral ou abrégés.
+-- Liste de départ : à compléter depuis le back-office au fil des demandes.
+-- =====================================================================
+
+insert into public.zones (name, city, region, aliases) values
+-- Dakar (ville)
+('Plateau', 'Dakar', 'Dakar', '{"Dakar Plateau","centre-ville"}'),
+('Médina', 'Dakar', 'Dakar', '{"Medina"}'),
+('Gueule Tapée', 'Dakar', 'Dakar', '{"Gueule Tapee","Fass","Colobane"}'),
+('Fann', 'Dakar', 'Dakar', '{"Fann Résidence","Fann Residence","Fann Hock"}'),
+('Point E', 'Dakar', 'Dakar', '{"Point-E","Point E Amitié"}'),
+('Amitié', 'Dakar', 'Dakar', '{"Amitie","Amitié 1","Amitié 2","Amitié 3"}'),
+('Mermoz', 'Dakar', 'Dakar', '{"Mermoz Pyrotechnie","Pyrotechnie"}'),
+('Sacré-Cœur', 'Dakar', 'Dakar', '{"Sacre Coeur","Sacré Coeur","Sacré-Cœur 1","Sacré-Cœur 2","Sacré-Cœur 3","Sacre-Coeur"}'),
+('Liberté', 'Dakar', 'Dakar', '{"Liberte","Liberté 1","Liberté 2","Liberté 3","Liberté 4","Liberté 5","Liberté 6","Liberte 6"}'),
+('Sicap', 'Dakar', 'Dakar', '{"Sicap Baobab","Sicap Karack","Sicap Dieuppeul","Dieuppeul","Derklé","Derkle"}'),
+('HLM', 'Dakar', 'Dakar', '{"HLM Grand Yoff","HLM 1","HLM 5","HLM Grand Médine"}'),
+('Grand Dakar', 'Dakar', 'Dakar', '{"Niary Tally","Bopp"}'),
+('Grand Yoff', 'Dakar', 'Dakar', '{"Grand-Yoff","Arafat"}'),
+('Biscuiterie', 'Dakar', 'Dakar', '{"Hann Maristes","Hann","Maristes"}'),
+('Hann Bel-Air', 'Dakar', 'Dakar', '{"Bel Air","Bel-Air","Hann Bel Air"}'),
+('Patte d''Oie', 'Dakar', 'Dakar', '{"Patte d Oie","Patte-d''Oie","Cité Soprim","Soprim"}'),
+('Parcelles Assainies', 'Dakar', 'Dakar', '{"Parcelles","PA","Parcelle","Unité 15","Parcelles Assainies Unité"}'),
+('Cambérène', 'Dakar', 'Dakar', '{"Camberene"}'),
+('Ouakam', 'Dakar', 'Dakar', '{"Cité Avion","Cite Avion","Mamelles","Les Mamelles"}'),
+('Ngor', 'Dakar', 'Dakar', '{"Virage","Ngor Virage"}'),
+('Almadies', 'Dakar', 'Dakar', '{"Les Almadies","Pointe des Almadies"}'),
+('Yoff', 'Dakar', 'Dakar', '{"Yoff Virage","Tonghor"}'),
+('Nord Foire', 'Dakar', 'Dakar', '{"Foire","Cité Keur Gorgui","Keur Gorgui","Cité Djily Mbaye"}'),
+('Ouest Foire', 'Dakar', 'Dakar', '{"Ouest-Foire"}'),
+-- Banlieue de Dakar
+('Pikine', 'Pikine', 'Dakar', '{"Pikine Icotaf","Thiaroye","Guinaw Rail"}'),
+('Guédiawaye', 'Guédiawaye', 'Dakar', '{"Guediawaye","Golf Sud","Golf","Sam Notaire","Wakhinane"}'),
+('Keur Massar', 'Keur Massar', 'Dakar', '{"Keur Massar Village","Jaxaay","Jaxaay Parcelles"}'),
+('Mbao', 'Pikine', 'Dakar', '{"Grand Mbao","Petit Mbao","Fass Mbao"}'),
+('Malika', 'Keur Massar', 'Dakar', '{}'),
+('Rufisque', 'Rufisque', 'Dakar', '{"Rufisque Est","Rufisque Ouest"}'),
+('Bargny', 'Rufisque', 'Dakar', '{}'),
+('Sangalkam', 'Rufisque', 'Dakar', '{"Bambilor","Tivaouane Peulh"}'),
+('Diamniadio', 'Diamniadio', 'Dakar', '{"Pôle urbain de Diamniadio","Pole urbain"}'),
+('Lac Rose', 'Rufisque', 'Dakar', '{"Niaga","Retba"}'),
+-- Thiès et Petite-Côte
+('Thiès', 'Thiès', 'Thiès', '{"Thies","Thiès ville"}'),
+('Mbour', 'Mbour', 'Thiès', '{"Mbour ville"}'),
+('Saly', 'Mbour', 'Thiès', '{"Saly Portudal","Saly Niakh Niakhal"}'),
+('Somone', 'Mbour', 'Thiès', '{"La Somone"}'),
+('Ngaparou', 'Mbour', 'Thiès', '{}'),
+('Popenguine', 'Mbour', 'Thiès', '{}'),
+('Toubab Dialaw', 'Mbour', 'Thiès', '{"Toubab Dialao"}'),
+('Tivaouane', 'Tivaouane', 'Thiès', '{}'),
+('Pout', 'Thiès', 'Thiès', '{}'),
+('Joal-Fadiouth', 'Joal-Fadiouth', 'Thiès', '{"Joal","Fadiouth"}'),
+-- Autres régions
+('Touba', 'Touba', 'Diourbel', '{"Touba Mosquée"}'),
+('Mbacké', 'Mbacké', 'Diourbel', '{"Mbacke"}'),
+('Diourbel', 'Diourbel', 'Diourbel', '{}'),
+('Saint-Louis', 'Saint-Louis', 'Saint-Louis', '{"Saint Louis","Ndar","Sor","Île de Saint-Louis"}'),
+('Richard-Toll', 'Richard-Toll', 'Saint-Louis', '{"Richard Toll"}'),
+('Louga', 'Louga', 'Louga', '{}'),
+('Kaolack', 'Kaolack', 'Kaolack', '{}'),
+('Fatick', 'Fatick', 'Fatick', '{}'),
+('Kaffrine', 'Kaffrine', 'Kaffrine', '{}'),
+('Ziguinchor', 'Ziguinchor', 'Ziguinchor', '{"Ziguinchor ville"}'),
+('Cap Skirring', 'Oussouye', 'Ziguinchor', '{"Cap-Skirring"}'),
+('Kolda', 'Kolda', 'Kolda', '{}'),
+('Sédhiou', 'Sédhiou', 'Sédhiou', '{"Sedhiou"}'),
+('Tambacounda', 'Tambacounda', 'Tambacounda', '{"Tamba"}'),
+('Kédougou', 'Kédougou', 'Kédougou', '{"Kedougou"}'),
+('Matam', 'Matam', 'Matam', '{"Ourossogui"}')
+on conflict (name, city) do nothing;
